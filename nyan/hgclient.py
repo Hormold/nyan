@@ -18,9 +18,8 @@ class IssueConfig:
     channel_id: int
     discussion_id: int
     bot_token: str
+    hg_channel_id: int
     last_update_id: int = 0
-    hg_channel_id: int = 0
-
 
 @dataclass
 class MessageId(Serializable):
