@@ -16,10 +16,10 @@ from nyan.util import Serializable
 class IssueConfig:
     name: str
     channel_id: int
-    hg_channel_id: int
     discussion_id: int
     bot_token: str
     last_update_id: int = 0
+    hg_channel_id: int = 0
 
 
 @dataclass
