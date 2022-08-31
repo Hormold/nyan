@@ -8,7 +8,7 @@ import string
 import random
 from urllib import response
 from httpx import Timeout, Limits, HTTPTransport, Client
-
+import re
 from nyan.util import Serializable
 
 
@@ -123,24 +123,42 @@ class HGClient:
 
         return True
 
+    def randomId(self):
+        return "".join(
+            [random.choice(string.ascii_letters + string.digits) for n in range(10)]
+        )
 
     def _send_text(self, text, issue, photo_url=None):
         timestamp_ms = int(round(time() * 1000))
         # Get random text ID like tQz3N9odLw, 10 symbol [a-zA-Z0-9]
-        randomBlockId = "".join(
-            [random.choice(string.ascii_letters + string.digits) for n in range(10)]
-        )
+       
 
+        # Split first sentence to seperate block
+        firstSentence = text.split(".")[0]
+        blocks = []
+        blocks.append({
+            "id": self.randomId(),
+            "type": "paragraph",
+            "data": {"text":"<b>"+firstSentence+".</b>"}
+        });
+
+        nextPart = text.replace(firstSentence+".", "");
+        regex = r"<p>(.*?)</p>"
+        
+        matches = re.findall(regex, nextPart)
+        for match in matches:
+            blocks.append({
+                "id": self.randomId(),
+                "type": "paragraph",
+                "data": {"text":match}
+            })
 
         params = {
             "header": "",
             "channel_id": issue.hg_channel_id,
             "body":{
                 "time": timestamp_ms,
-                "blocks":
-                    [
-                        {"id":randomBlockId,"type":"paragraph","data":{"text":text}},
-                    ],
+                "blocks": blocks,
                 "version":"2.25.0"
             }
         }
