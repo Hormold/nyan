@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 
 from nyan.annotator import Annotator
 from nyan.client import TelegramClient
+from nyan.hgclient import HGClient
 from nyan.clusters import Clusters
 from nyan.clusterer import Clusterer
 from nyan.channels import Channels
@@ -29,6 +30,7 @@ def main(
 ):
     assert input_path and not mongo_config_path or mongo_config_path and not input_path
     client = TelegramClient(client_config_path)
+    hgClient = HGClient(client_config_path)
     annotator = Annotator(annotator_config_path, channels_info_path)
     channels = Channels.load(channels_info_path)
     clusterer = Clusterer(clusterer_config_path)
@@ -123,12 +125,14 @@ def main(
                 continue
 
             cluster_text = renderer.render_cluster(cluster)
+            cluster_text_hg = renderer.render_cluster_hg(cluster)
             print()
             print("New cluster in {}: {}".format(cluster.issue, cluster.cropped_title))
 
             issue_name = cluster.issue
             client.update_discussion_mapping(issue_name)
             message = client.send_message(cluster_text, issue_name, photos=cluster.images, videos=cluster.videos)
+            hgClient.send_message(cluster_text_hg, issue_name, photos=cluster.images)
             if message is None:
                 continue
 

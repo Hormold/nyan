@@ -1,4 +1,5 @@
 {
     "cluster_template": "nyan/templates/cluster.html",
+    "hg_cluster_template": "nyan/templates/hg.html",
     "ratings_template": "nyan/templates/ratings.html"
 }

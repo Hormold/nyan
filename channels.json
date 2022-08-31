@@ -127,15 +127,6 @@
       "issue": "main"
     },
     {
-      "name": "rt_russian",
-      "groups": {
-        "main": "red",
-        "tech": "other"
-      },
-      "alias": "RT на русском",
-      "issue": "main"
-    },
-    {
       "name": "petrovtel",
       "groups": {
         "main": "purple",
@@ -198,15 +189,6 @@
         "tech": "other"
       },
       "alias": "BBC News | Русская служба",
-      "issue": "main"
-    },
-    {
-      "name": "new_militarycolumnist",
-      "groups": {
-        "main": "purple",
-        "tech": "other"
-      },
-      "alias": "Военный обозреватель",
       "issue": "main"
     },
     {
@@ -310,15 +292,6 @@
         "tech": "other"
       },
       "alias": "Овсянка, сэр!",
-      "issue": "main"
-    },
-    {
-      "name": "solovievlive",
-      "groups": {
-        "main": "red",
-        "tech": "other"
-      },
-      "alias": "Соловьёв",
       "issue": "main"
     },
     {
@@ -781,6 +754,60 @@
         "tech": "other"
       },
       "alias": "URA.RU",
+      "issue": "main"
+    },
+    {
+      "name": "BILD_Russian",
+      "groups": {
+        "main": "blue",
+        "tech": "other"
+      },
+      "alias": "BILD",
+      "issue": "main"
+    },
+    {
+      "name": "addmeto",
+      "groups": {
+        "main": "purple",
+        "tech": "tech"
+      },
+      "alias": "addmeto",
+      "issue": "tech"
+    },
+    {
+      "name": "kolezev",
+      "groups": {
+        "main": "blue",
+        "tech": "other"
+      },
+      "alias": "Колезев",
+      "issue": "main"
+    },
+    {
+      "name": "blognot",
+      "groups": {
+        "main": "purple",
+        "tech": "tech"
+      },
+      "alias": "БлогНот",
+      "issue": "tech"
+    },
+    {
+      "name": "svtvnews",
+      "groups": {
+        "main": "blue",
+        "tech": "other"
+      },
+      "alias": "SVTV News",
+      "issue": "main"
+    },
+    {
+      "name": "rgrunews",
+      "groups": {
+        "main": "red",
+        "tech": "other"
+      },
+      "alias": "Российская Газета",
       "issue": "main"
     }
   ],

@@ -1,0 +1,7 @@
+{{annotation_doc.text|e}} —— <a href="{{annotation_doc.url}}">{{annotation_doc.channel_title}}</a>
+<small>Новости группируются автоматически. Сообщение не достоверно, правдивость информации не проверяется.</small>
+
+Источники:
+{% for group, sources in groups %}
+{{-emojis[group]-}}{%- for source in sources %}<a href="{{source.url}}">{{source.channel_title}}</a>{% if not loop.last %} • {% endif %}{% endfor %}
+{% endfor %}

@@ -23,6 +23,7 @@ class Renderer:
         file_loader = FileSystemLoader(".")
         env = Environment(loader=file_loader)
         self.cluster_template = env.get_template(config["cluster_template"])
+        self.hg_cluster_template = env.get_template(config["hg_cluster_template"])
         self.ratings_template = None
         if "ratings_template" in config:
             self.ratings_template = env.get_template(config["ratings_template"])
@@ -64,6 +65,52 @@ class Renderer:
 
         views = self.views_to_str(cluster.views)
         return self.cluster_template.render(
+            annotation_doc=cluster.annotation_doc,
+            first_doc=first_doc,
+            groups=groups,
+            emojis=emojis,
+            views=views,
+            is_important=cluster.is_important,
+            external_link=external_link
+        )
+    
+    def render_cluster_hg(self, cluster: Cluster):
+        issue = cluster.issue
+        groups = defaultdict(list)
+        emojis = dict()
+        for doc in cluster.docs:
+            group = doc.groups[issue]
+            groups[group].append(doc)
+            emojis[group] = self.channels[doc.channel_id].emojis[issue]
+
+        used_channels = set()
+        for group_name, group in groups.items():
+            group.sort(key=lambda x: x.pub_time)
+            filtered_group = list()
+            for doc in group:
+                if doc.channel_id in used_channels:
+                    continue
+                used_channels.add(doc.channel_id)
+                filtered_group.append(doc)
+            groups[group_name] = filtered_group
+
+        groups = list(sorted(groups.items(), key=lambda x: x[0]))
+
+        first_doc = copy.deepcopy(cluster.first_doc)
+        first_doc.pub_time = datetime.fromtimestamp(first_doc.pub_time + 3 * 3600)
+
+        external_link = None
+        if cluster.external_links:
+            external_link_url, el_cnt = cluster.external_links.most_common()[0]
+            external_link_host = urlsplit(external_link_url).netloc
+            if el_cnt >= 2:
+                external_link = {
+                    "url": external_link_url,
+                    "host": external_link_host
+                }
+
+        views = self.views_to_str(cluster.views)
+        return self.hg_cluster_template.render(
             annotation_doc=cluster.annotation_doc,
             first_doc=first_doc,
             groups=groups,
