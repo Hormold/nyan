@@ -98,7 +98,10 @@ class HGClient:
         issue_name: str,
         photos: Tuple[str] = tuple()
     ):
+        print(f"Sending message to {issue_name}")
         issue = self.issues[issue_name]
+        # Print channel id
+        print(f"Channel id: {issue.hg_channel_id}")
 
         # Stay only tech news
         if issue.hg_channel_id == 0:
