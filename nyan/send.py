@@ -134,8 +134,8 @@ def main(
             message = client.send_message(cluster_text, issue_name, photos=cluster.images, videos=cluster.videos)
 
             # Post only long texts
-            if len(cluster.annotation_doc.text) > 250:
-                hgClient.send_message(cluster_text_hg, issue_name, photos=cluster.images)
+            #if len(cluster.annotation_doc.text) > 350:
+                #hgClient.send_message(cluster_text_hg, issue_name, photos=cluster.images)
 
             if message is None:
                 continue

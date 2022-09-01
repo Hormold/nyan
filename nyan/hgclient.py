@@ -139,10 +139,10 @@ class HGClient:
         blocks.append({
             "id": self.randomId(),
             "type": "paragraph",
-            "data": {"text":"<b>"+firstSentence+".</b>"}
+            "data": {"text":"<b>"+firstSentence.replace("<p>", "")+".</b>"}
         });
 
-        nextPart = text.replace(firstSentence+".", "");
+        nextPart = text.replace(firstSentence+".", "<p>");
         regex = r"<p>(.*?)</p>"
 
         matches = re.findall(regex, nextPart)
