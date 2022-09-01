@@ -132,7 +132,11 @@ def main(
             issue_name = cluster.issue
             client.update_discussion_mapping(issue_name)
             message = client.send_message(cluster_text, issue_name, photos=cluster.images, videos=cluster.videos)
-            hgClient.send_message(cluster_text_hg, issue_name, photos=cluster.images)
+
+            # Post only long texts
+            if len(cluster.annotation_doc.text) > 250:
+                hgClient.send_message(cluster_text_hg, issue_name, photos=cluster.images)
+
             if message is None:
                 continue
 

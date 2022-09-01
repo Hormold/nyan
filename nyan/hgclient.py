@@ -144,13 +144,13 @@ class HGClient:
 
         nextPart = text.replace(firstSentence+".", "");
         regex = r"<p>(.*?)</p>"
-        
+
         matches = re.findall(regex, nextPart)
         for match in matches:
             blocks.append({
                 "id": self.randomId(),
                 "type": "paragraph",
-                "data": {"text":match}
+                "data": {"text":"<p>"+match+"</p>"}
             })
 
         params = {
@@ -168,12 +168,11 @@ class HGClient:
         }
 
         if photo_url:
-            randomBlockId2 = "".join(
-                [random.choice(string.ascii_letters + string.digits) for n in range(10)]
-            )
 	        # If has photo, add it to body after text
-
-            params["body"]["blocks"].append({"id":randomBlockId2,"type":"image","data":{"file":{"url":photo_url},"caption": "","withBorder":True,"stretched":True,"withBackground":False}})
+            params["body"]["blocks"].append({"id":self.randomId(),"type":"image","data":{"file":{"url":photo_url},"caption": "","withBorder":True,"stretched":True,"withBackground":False}})
+        
+        print("Send blocks:", blocks)
+        print('Original text:', text)
 
         # Send body as json
         return self.client.post("https://hongkong.zoibana.ru/api/v1.1/posts", json=params, cookies=self.cookies, headers=headers)
