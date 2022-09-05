@@ -809,6 +809,24 @@
       },
       "alias": "Российская Газета",
       "issue": "main"
+    }, 
+    {
+      "name": "ftsec",
+      "groups": {
+        "main": "purple",
+        "tech": "tech"
+      },
+      "alias": "42 секунды",
+      "issue": "tech"
+    }, 
+    {
+      "name": "PlushevChannel",
+      "groups": {
+        "main": "blue",
+        "tech": "other"
+      },
+      "alias": "ПЛЮЩЕВ",
+      "issue": "main"
     }
   ],
   "emojis": {
