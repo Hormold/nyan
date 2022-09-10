@@ -69,7 +69,7 @@ class HGClient:
         print(self.config["issues"])
 
         self.issues = {config["name"]: IssueConfig(**config) for config in self.config["issues"]}
-        self.login(self.config.get('hg_login'), self.config.get('hg_password'))
+        # self.login(self.config.get('hg_login'), self.config.get('hg_password'))
 
     def login(self, login, password):
         # Login and save cookies
